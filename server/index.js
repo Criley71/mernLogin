@@ -8,7 +8,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://criley16:141028Cr@merntodo.cpttvig.mongodb.net/employee")
+mongoose.connect("mongodb+srv://criley16:<password>@merntodo.cpttvig.mongodb.net/employee")
 app.post('/login', (req, res) => {
     const {email, password} = req.body;
     EmployeeModel.findOne({email: email})
