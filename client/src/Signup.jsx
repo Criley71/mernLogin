@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
 
@@ -12,11 +12,12 @@ function Signup() {
     const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:3001/register', {name, email, password})
-        .then(result => {console.log(result)
-            navigate('/login')
-        })
-        .catch(error => console.log(error))
+        axios.post('http://localhost:3001/register', { name, email, password })
+            .then(result => {
+                console.log(result)
+                navigate('/login')
+            })
+            .catch(error => console.log(error))
     }
 
     return (
@@ -68,9 +69,11 @@ function Signup() {
                     </button>
                 </form>
                 <p></p>
-                <button className="btn btn-default border w-100 rounded-0 text-decoration-none">
-                    Login
-                </button>
+                <Link to="/login">
+                    <button className="btn btn-default border w-100 rounded-0 text-decoration-none">
+                        Login
+                    </button>
+                </Link>
             </div>
         </div>
     )
