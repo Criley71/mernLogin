@@ -5,30 +5,46 @@ const EmployeeModel = require('./models/Employee')
 
 
 const app = express()
-app.use(cors())
+app.use(cors(
+    {
+        origin: [""],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+
+))
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://criley16:<password>@merntodo.cpttvig.mongodb.net/employee")
+mongoose.connect("mongodb+srv://criley16:141028Cr@merntodo.cpttvig.mongodb.net/employee")
 app.post('/login', (req, res) => {
-    const {email, password} = req.body;
-    EmployeeModel.findOne({email: email})
-    .then(user => {
-        if(user) {
-            if(user.password === password){
-                res.json("Success")
+    const { email, password } = req.body;
+    EmployeeModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                if (user.password === password) {
+                    res.json("Success")
+                } else {
+                    res.json("The password is incorrect")
+                }
             } else {
-                res.json("The password is incorrect")
+                res.json("no record exists")
             }
-        } else {
-            res.json("no record exists")
-        }
-    })
+        })
 })
 app.post('/register', (req, res) => {
-    EmployeeModel.create(req.body)
-    //data coming from frontend is posted
-    .then(employees => res.json(employees))
-    .catch(err => res.json(err))
+    const { name, email, password } = req.body;
+    EmployeeModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                res.json("Already have an account")
+            } else {
+                EmployeeModel.create(req.body)
+                    //data coming from frontend is posted
+                    .then(employees => res.json(employees))
+                    .catch(err => res.json(err))
+            }
+        }).catch(err => res.json(err))
+
 })
 
 app.listen(3001, () => {
