@@ -10,9 +10,10 @@ function Signup() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate()
+    axios.defaults.withCredentials = true;
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:3001/register', { name, email, password })
+        axios.post('https://mern-login-one.vercel.app/register', { name, email, password })
             .then(result => {
                 console.log(result)
                 navigate('/login')
