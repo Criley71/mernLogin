@@ -16,7 +16,7 @@ function Signup() {
         axios.post('https://mern-login-one.vercel.app/register', { name, email, password })
             .then(result => {
                 console.log(result)
-                navigate('/login')
+                navigate('/')
             })
             .catch(error => console.log(error))
     }
